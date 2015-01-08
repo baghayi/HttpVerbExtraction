@@ -5,8 +5,11 @@ use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractResourceListener extends AbstractListenerAggregate {
+abstract class AbstractResourceListener extends AbstractListenerAggregate implements 
+    ServiceLocatorAwareInterface {
 
     /**
      * @var ResourceEvent
@@ -36,6 +39,19 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate {
      * @var \Zend\InputFilter\InputFilterInterface
      */
     protected $inputFilter;
+
+
+    private $serviceManager;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceManager = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceManager;
+    }
 
     /**
      * Set the entity_class for the controller config calling this resource

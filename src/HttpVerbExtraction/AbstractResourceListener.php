@@ -237,7 +237,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         $serviceName = $this->deleteList();
         $errorMessage = 'The DELETE method has not been defined for collections';
 
-        $this->dispatchService($serviceName, $event, $erroMessage);
+        $this->dispatchService($serviceName, $event, $errorMessage);
 
     }
 

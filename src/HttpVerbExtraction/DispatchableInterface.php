@@ -1,7 +1,7 @@
 <?php
 namespace HttpVerbExtraction;
 
-interface DispatchInterface {
+interface DispatchableInterface {
 
     public function dispatch(ResourceEvent $event);
 

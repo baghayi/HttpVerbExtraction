@@ -1,6 +1,10 @@
 <?php
 namespace HttpVerbExtraction;
 
+use HttpVerbExtraction\Initializer\QueryParams;
+use HttpVerbExtraction\InitializerValue\QueryParams as QueryParamsValue;
+use HttpVerbExtraction\DispatchableInterface;
+
 class Module
 {
     public function getConfig()
@@ -17,6 +21,29 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function getServiceConfig()
+    {
+        return [
+            'initializers' => [
+                QueryParams::class => function($service, $sm){
+                    if(!$service instanceof DispatchableInterface)
+                        return;
+
+                    $params = $sm->get(QueryParamsValue::class);
+                    if($service instanceof QueryParams)
+                        $service->setQueryParams($params->get());
+                },
+            ], // initializers
+
+            'factories' => [
+                QueryParamsValue::class => function($sm){
+                    $event = $sm->get('Application')->getMvcEvent();
+                    return new QueryParamsValue($event);
+                },
+            ]
+        ];
     }
 }
 

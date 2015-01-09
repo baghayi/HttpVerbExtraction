@@ -177,8 +177,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
                 $id   = $event->getParam('id', null);
                 return $this->fetch($id);
             case 'fetchAll':
-                $queryParams = $event->getQueryParams() ?: array();
-                return $this->fetchAll($queryParams);
+                return $this->dispatchFetchAll($event);
             case 'patch':
                 $id   = $event->getParam('id', null);
                 $data = $event->getParam('data', array());
@@ -249,11 +248,24 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Fetch all or a subset of resources
      *
-     * @param  array $params
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function fetchAll($params = array())
+    public function fetchAll(){}
+
+    private function dispatchFetchAll(ResourceEvent $event)
     {
+        $serviceName = $this->fetchAll();
+
+        if($serviceName instanceof DispatchableInterface)
+            return $serviceName->dispatch($event);
+
+        if(!$this->getServiceLocator()->has($serviceName))
+            return new ApiProblem(405, 'The GET method has not been defined for collections');
+
+        $service = $this->getServiceLocator()->get($serviceName);
+        if($service instanceof DispatchableInterface)
+            return $service->dispatch($event);
+
         return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
 

@@ -171,8 +171,9 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
                 $id   = $event->getParam('id', null);
                 return $this->delete($id);
             case 'deleteList':
-                $data = $event->getParam('data', array());
-                return $this->deleteList($data);
+                //$data = $event->getParam('data', array());
+                //return $this->deleteList($data);
+                return $this->dispatchDeleteList($event);
             case 'fetch':
                 $id   = $event->getParam('id', null);
                 return $this->fetch($id);
@@ -223,15 +224,36 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
     }
 
+
     /**
      * Delete a collection, or members of a collection
      *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function deleteList($data)
+    public function deleteList(){}
+
+    private function dispatchDeleteList(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
+        $serviceName = $this->deleteList();
+        $errorMessage = 'The DELETE method has not been defined for collections';
+
+        $this->dispatchService($serviceName, $event, $erroMessage);
+
+    }
+
+    private function dispatchService($serviceName, ResourceEvent $event, $errorMessage)
+    {
+        if($serviceName instanceof DispatchableInterface)
+            return $serviceName->dispatch($event);
+
+        if(!$this->getServiceLocator()->has($serviceName))
+            return new ApiProblem(405, $errorMessage);
+
+        $service = $this->getServiceLocator()->get($serviceName);
+        if($service instanceof DispatchableInterface)
+            return $service->dispatch($event);
+
+        return new ApiProblem(405, $errorMessage);
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace HttpVerbExtraction;
+namespace HttpVerbExtraction\Rest;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;

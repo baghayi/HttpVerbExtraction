@@ -148,9 +148,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'fetchAll':
                 return $this->dispatchFetchAll($event);
             case 'patch':
-                $id   = $event->getParam('id', null);
-                $data = $event->getParam('data', array());
-                return $this->patch($id, $data);
+                return $this->patch($event);
             case 'patchList':
                 $data = $event->getParam('data', array());
                 return $this->patchList($data);
@@ -274,13 +272,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Patch (partial in-place update) a resource
      *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function patch($id, $data)
+    public function patch(){}
+
+    private function dispatchPatch(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        $serviceName = $this->patch();
+        $errorMessage =  'The PATCH method has not been defined for individual resources';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     /**

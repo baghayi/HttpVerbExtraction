@@ -148,7 +148,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function dispatch(ResourceEvent $event)
     {
-        $errorMessage = $this->getErrorMessage($event);
         $serviceName  = $this->getServiceName($event);
 
         if($serviceName instanceof DispatchableInterface)
@@ -159,6 +158,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         if($service instanceof DispatchableInterface)
             return $service->dispatch($event);
 
+        $errorMessage = $this->getErrorMessage($event);
         return new ApiProblem(405, $errorMessage);
     }
 

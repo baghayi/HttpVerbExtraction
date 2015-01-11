@@ -184,10 +184,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         if($serviceName instanceof DispatchableInterface)
             return $serviceName->dispatch($event);
 
-        if(!$this->getServiceLocator()->has($serviceName))
-            return new ApiProblem(405, $errorMessage);
+        $service = $this->getServiceInstance($serviceName);
 
-        $service = $this->getServiceLocator()->get($serviceName);
         if($service instanceof DispatchableInterface)
             return $service->dispatch($event);
 
@@ -208,6 +206,14 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             return;
 
         return $this->$eventName();
+    }
+
+    private function getServiceInstance($serviceName)
+    {
+        if(!$this->getServiceLocator()->has($serviceName))
+            return;
+
+        return $this->getServiceLocator()->get($serviceName);
     }
 
     /**

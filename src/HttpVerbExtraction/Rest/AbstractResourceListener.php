@@ -144,14 +144,13 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'deleteList':
                 return $this->dispatchDeleteList($event);
             case 'fetch':
-                return $this->fetch($event);
+                return $this->dispatchFetch($event);
             case 'fetchAll':
                 return $this->dispatchFetchAll($event);
             case 'patch':
-                return $this->patch($event);
+                return $this->dispatchPatch($event);
             case 'patchList':
-                $data = $event->getParam('data', array());
-                return $this->patchList($data);
+                return $this->dispatchPatchList($event);
             case 'replaceList':
                 $data = $event->getParam('data', array());
                 return $this->replaceList($data);
@@ -254,10 +253,23 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
     private function dispatchFetchAll(ResourceEvent $event)
     {
-        $serviceName = $this->fetchAll();
-        $errorMessage = 'The GET method has not been defined for collections';
+        $serviceName = $this->fetch();
+        $errorMessage = 'The GET method has not been defined for individual resources';
 
         return $this->dispatchService($serviceName, $event, $errorMessage);
+
+
+        if($serviceName instanceof DispatchableInterface)
+            return $serviceName->dispatch($event);
+
+        if(!$this->getServiceLocator()->has($serviceName))
+            return new ApiProblem(405, 'The GET method has not been defined for collections');
+
+        $service = $this->getServiceLocator()->get($serviceName);
+        if($service instanceof DispatchableInterface)
+            return $service->dispatch($event);
+
+        return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
 
     /**
@@ -278,12 +290,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Patch (partial in-place update) a collection or members of a collection
      *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function patchList($data)
+    public function patchList($data){}
+
+    private function dispatchPatchList($event)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for collections');
+        $serviceName = $this->patchList();
+        $errorMessage =  'The PATCH method has not been defined for collections';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     /**

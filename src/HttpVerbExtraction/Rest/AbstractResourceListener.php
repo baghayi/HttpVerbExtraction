@@ -144,7 +144,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      * Marshals arguments from the event parameters.
      *
      * @param  ResourceEvent $event
-     * @return mixed
+     * @return ApiProblem|HttpVerbExtraction\DispatchableInterface
      */
     public function dispatch(ResourceEvent $event)
     {

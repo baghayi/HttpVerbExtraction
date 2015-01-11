@@ -280,7 +280,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function patchList(){}
 
-    private function dispatchPatchList($event)
+    private function dispatchPatchList(ResourceEvent $event)
     {
         $serviceName = $this->patchList();
         $errorMessage =  'The PATCH method has not been defined for collections';

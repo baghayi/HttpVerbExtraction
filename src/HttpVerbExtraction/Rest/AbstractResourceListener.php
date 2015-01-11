@@ -154,9 +154,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'replaceList':
                 return $this->dispatchReplaceList($event);
             case 'update':
-                $id   = $event->getParam('id', null);
-                $data = $event->getParam('data', array());
-                return $this->update($id, $data);
+                return $this->dispatchUpdate($event);
             default:
                 throw new Exception\RuntimeException(sprintf(
                     '%s has not been setup to handle the event "%s"',
@@ -306,15 +304,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Update a resource
      *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function update($id, $data)
+    public function update(){}
+
+    private function dispatchUpdate(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        $serviceName = $this->update();
+        $errorMessage =  'The PUT method has not been defined for individual resources';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
-
-
 
 }

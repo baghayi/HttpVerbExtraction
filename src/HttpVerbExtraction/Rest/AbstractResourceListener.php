@@ -252,23 +252,10 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
     private function dispatchFetchAll(ResourceEvent $event)
     {
-        $serviceName = $this->fetch();
+        $serviceName = $this->fetchAll();
         $errorMessage = 'The GET method has not been defined for individual resources';
 
         return $this->dispatchService($serviceName, $event, $errorMessage);
-
-
-        if($serviceName instanceof DispatchableInterface)
-            return $serviceName->dispatch($event);
-
-        if(!$this->getServiceLocator()->has($serviceName))
-            return new ApiProblem(405, 'The GET method has not been defined for collections');
-
-        $service = $this->getServiceLocator()->get($serviceName);
-        if($service instanceof DispatchableInterface)
-            return $service->dispatch($event);
-
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
 
     /**

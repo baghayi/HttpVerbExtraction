@@ -7,6 +7,7 @@ use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use HttpVerbExtraction\DispatchableInterface;
 
 abstract class AbstractResourceListener extends AbstractListenerAggregate implements 
     ServiceLocatorAwareInterface {

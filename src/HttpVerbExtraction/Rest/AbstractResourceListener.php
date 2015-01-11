@@ -217,12 +217,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function create(){}
 
-    private function dispatchCreate(ResourceEvent $event)
-    {
-        $serviceName = $this->create();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
     /**
      * Delete a resource
@@ -230,13 +224,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      * @return String
      */
     public function delete(){}
-
-    private function dispatchDelete(ResourceEvent $event)
-    {
-        $serviceName = $this->delete();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
 
     /**
@@ -246,13 +233,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function deleteList(){}
 
-    private function dispatchDeleteList(ResourceEvent $event)
-    {
-        $serviceName = $this->deleteList();
-
-        return $this->dispatchService($serviceName, $event);
-    }
-
 
     /**
      * Fetch a resource
@@ -261,12 +241,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function fetch(){}
 
-    private function dispatchFetch(ResourceEvent $event)
-    {
-        $serviceName = $this->fetch();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
     /**
      * Fetch all or a subset of resources
@@ -275,12 +249,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function fetchAll(){}
 
-    private function dispatchFetchAll(ResourceEvent $event)
-    {
-        $serviceName = $this->fetchAll();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
     /**
      * Patch (partial in-place update) a resource
@@ -289,12 +257,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function patch(){}
 
-    private function dispatchPatch(ResourceEvent $event)
-    {
-        $serviceName = $this->patch();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
     /**
      * Patch (partial in-place update) a collection or members of a collection
@@ -303,12 +265,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function patchList(){}
 
-    private function dispatchPatchList(ResourceEvent $event)
-    {
-        $serviceName = $this->patchList();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
     /**
      * Replace a collection or members of a collection
@@ -317,13 +273,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function replaceList(){}
 
-    private function dispatchReplaceList(ResourceEvent $event)
-    {
-        $serviceName = $this->replaceList();
-
-        return $this->dispatchService($serviceName, $event);
-    }
-
     /**
      * Update a resource
      *
@@ -331,11 +280,5 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function update(){}
 
-    private function dispatchUpdate(ResourceEvent $event)
-    {
-        $serviceName = $this->update();
-
-        return $this->dispatchService($serviceName, $event);
-    }
 
 }

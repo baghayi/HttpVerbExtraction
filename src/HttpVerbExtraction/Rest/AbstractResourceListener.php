@@ -144,8 +144,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'deleteList':
                 return $this->dispatchDeleteList($event);
             case 'fetch':
-                $id   = $event->getParam('id', null);
-                return $this->fetch($id);
+                return $this->fetch($event);
             case 'fetchAll':
                 return $this->dispatchFetchAll($event);
             case 'patch':
@@ -236,12 +235,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Fetch a resource
      *
-     * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function fetch($id)
+    public function fetch(){}
+
+    private function dispatchFetch(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $serviceName = $this->fetch();
+        $errorMessage = 'The GET method has not been defined for individual resources';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     /**

@@ -7,7 +7,7 @@ trait QueryParams {
 
     public function getQueryParams(ResourceEvent $event)
     {        
-        return $event->getParam('data', array());
+        return $event->getQueryParams() ?: array();
     }
 
 }

@@ -165,11 +165,10 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         $this->event = $event;
         switch ($event->getName()) {
             case 'create':
-                $data = $event->getParam('data', array());
-                return $this->create($data);
+                return $this->dispatchCreate($event);
             case 'delete':
-                $id   = $event->getParam('id', null);
-                return $this->delete($id);
+                //$id   = $event->getParam('id', null);
+                return $this->dispatchDelete($event);
             case 'deleteList':
                 //$data = $event->getParam('data', array());
                 //return $this->deleteList($data);
@@ -205,23 +204,31 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Create a resource
      *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function create($data)
+    public function create(){}
+
+    private function dispatchCreate(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $serviceName = $this->create();
+        $errorMessage = 'The POST method has not been defined';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     /**
      * Delete a resource
      *
-     * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function delete($id)
+    public function delete(){}
+
+    private function dispatchDelete(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        $serviceName = $this->delete();
+        $errorMessage = 'The DELETE method has not been defined for individual resources';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
 
@@ -237,8 +244,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         $serviceName = $this->deleteList();
         $errorMessage = 'The DELETE method has not been defined for collections';
 
-        $this->dispatchService($serviceName, $event, $errorMessage);
-
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     private function dispatchService($serviceName, ResourceEvent $event, $errorMessage)

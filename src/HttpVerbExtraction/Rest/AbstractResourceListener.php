@@ -12,6 +12,19 @@ use HttpVerbExtraction\DispatchableInterface;
 abstract class AbstractResourceListener extends AbstractListenerAggregate implements 
     ServiceLocatorAwareInterface {
 
+
+    protected $errorMessages = array(
+        'create'      => 'The POST method has not been defined',
+        'delete'      => 'The DELETE method has not been defined for individual resources',
+        'deleteList'  => 'The DELETE method has not been defined for collections',
+        'fetch'       => 'The GET method has not been defined for individual resources',
+        'fetchAll'    => 'The GET method has not been defined for collections',
+        'patch'       => 'The PATCH method has not been defined for individual resources',
+        'patchList'   => 'The PATCH method has not been defined for collections',
+        'replaceList' => 'The PUT method has not been defined for collections',
+        'update'      => 'The PUT method has not been defined for individual resources',
+    );
+
     /**
      * @var ResourceEvent
      */
@@ -126,17 +139,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     }
 
 
-    protected $errorMessages = array(
-        'create' => 'The POST method has not been defined',
-        'delete' => 'The DELETE method has not been defined for individual resources',
-        'deleteList' => 'The DELETE method has not been defined for collections',
-        'fetch' => 'The GET method has not been defined for individual resources',
-        'fetchAll' => 'The GET method has not been defined for collections',
-        'patch' => 'The PATCH method has not been defined for individual resources',
-        'patchList' => 'The PATCH method has not been defined for collections',
-        'replaceList' => 'The PUT method has not been defined for collections',
-        'update' => 'The PUT method has not been defined for individual resources',
-    );
 
     /**
      * Dispatch an incoming event to the appropriate method

@@ -1,6 +1,8 @@
 <?php
 namespace HttpVerbExtraction\Traits;
 
+use ZF\Rest\ResourceEvent;
+
 trait Identity {
 
     

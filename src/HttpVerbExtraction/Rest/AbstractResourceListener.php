@@ -125,44 +125,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         $events->attach('update',      array($this, 'dispatch'));
     }
 
-    /**
-     * Dispatch an incoming event to the appropriate method
-     *
-     * Marshals arguments from the event parameters.
-     *
-     * @param  ResourceEvent $event
-     * @return mixed
-     */
-    public function dispatch(ResourceEvent $event)
-    {
-        $this->event = $event;
-        switch ($event->getName()) {
-            case 'create':
-                return $this->dispatchService($event);
-            case 'delete':
-                return $this->dispatchService($event);
-            case 'deleteList':
-                return $this->dispatchService($event);
-            case 'fetch':
-                return $this->dispatchService($event);
-            case 'fetchAll':
-                return $this->dispatchService($event);
-            case 'patch':
-                return $this->dispatchService($event);
-            case 'patchList':
-                return $this->dispatchService($event);
-            case 'replaceList':
-                return $this->dispatchService($event);
-            case 'update':
-                return $this->dispatchService($event);
-            default:
-                throw new Exception\RuntimeException(sprintf(
-                    '%s has not been setup to handle the event "%s"',
-                    __METHOD__,
-                    $event->getName()
-                ));
-        }
-    }
 
     protected $errorMessages = array(
         'create' => 'The POST method has not been defined',
@@ -176,7 +138,15 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         'update' => 'The PUT method has not been defined for individual resources',
     );
 
-    private function dispatchService(ResourceEvent $event)
+    /**
+     * Dispatch an incoming event to the appropriate method
+     *
+     * Marshals arguments from the event parameters.
+     *
+     * @param  ResourceEvent $event
+     * @return mixed
+     */
+    public function dispatch(ResourceEvent $event)
     {
         $errorMessage = $this->getErrorMessage($event);
         $serviceName  = $this->getServiceName($event);

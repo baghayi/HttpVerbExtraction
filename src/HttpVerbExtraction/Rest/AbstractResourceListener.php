@@ -138,23 +138,23 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         $this->event = $event;
         switch ($event->getName()) {
             case 'create':
-                return $this->dispatchCreate($event);
+                return $this->dispatchService($event);
             case 'delete':
-                return $this->dispatchDelete($event);
+                return $this->dispatchService($event);
             case 'deleteList':
-                return $this->dispatchDeleteList($event);
+                return $this->dispatchService($event);
             case 'fetch':
-                return $this->dispatchFetch($event);
+                return $this->dispatchService($event);
             case 'fetchAll':
-                return $this->dispatchFetchAll($event);
+                return $this->dispatchService($event);
             case 'patch':
-                return $this->dispatchPatch($event);
+                return $this->dispatchService($event);
             case 'patchList':
-                return $this->dispatchPatchList($event);
+                return $this->dispatchService($event);
             case 'replaceList':
-                return $this->dispatchReplaceList($event);
+                return $this->dispatchService($event);
             case 'update':
-                return $this->dispatchUpdate($event);
+                return $this->dispatchService($event);
             default:
                 throw new Exception\RuntimeException(sprintf(
                     '%s has not been setup to handle the event "%s"',
@@ -176,9 +176,10 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         'update' => 'The PUT method has not been defined for individual resources',
     );
 
-    private function dispatchService($serviceName, ResourceEvent $event)
+    private function dispatchService(ResourceEvent $event)
     {
         $errorMessage = $this->getErrorMessage($event);
+        $serviceName  = $this->getServiceName($event);
 
         if($serviceName instanceof DispatchableInterface)
             return $serviceName->dispatch($event);
@@ -197,6 +198,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     {
         $eventName = $event->getName();
         return $this->errorMessages[$eventName];
+    }
+
+    private function getServiceName(ResourceEvent $event)
+    {
+        $eventName = $event->getName();
+
+        if(!method_exists($this, $eventName))
+            return;
+
+        return $this->$eventName();
     }
 
     /**

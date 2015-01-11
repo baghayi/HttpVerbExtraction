@@ -164,8 +164,22 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         }
     }
 
-    private function dispatchService($serviceName, ResourceEvent $event, $errorMessage)
+    protected $errorMessages = array(
+        'create' => 'The POST method has not been defined',
+        'delete' => 'The DELETE method has not been defined for individual resources',
+        'deleteList' => 'The DELETE method has not been defined for collections',
+        'fetch' => 'The GET method has not been defined for individual resources',
+        'fetchAll' => 'The GET method has not been defined for collections',
+        'patch' => 'The PATCH method has not been defined for individual resources',
+        'patchList' => 'The PATCH method has not been defined for collections',
+        'replaceList' => 'The PUT method has not been defined for collections',
+        'update' => 'The PUT method has not been defined for individual resources',
+    );
+
+    private function dispatchService($serviceName, ResourceEvent $event)
     {
+        $errorMessage = $this->getErrorMessage($event);
+
         if($serviceName instanceof DispatchableInterface)
             return $serviceName->dispatch($event);
 
@@ -179,6 +193,12 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         return new ApiProblem(405, $errorMessage);
     }
 
+    private function getErrorMessage(ResourceEvent $event)
+    {
+        $eventName = $event->getName();
+        return $this->errorMessages[$eventName];
+    }
+
     /**
      * Create a resource
      *
@@ -189,9 +209,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchCreate(ResourceEvent $event)
     {
         $serviceName = $this->create();
-        $errorMessage = 'The POST method has not been defined';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -204,9 +223,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchDelete(ResourceEvent $event)
     {
         $serviceName = $this->delete();
-        $errorMessage = 'The DELETE method has not been defined for individual resources';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
 
@@ -220,9 +238,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchDeleteList(ResourceEvent $event)
     {
         $serviceName = $this->deleteList();
-        $errorMessage = 'The DELETE method has not been defined for collections';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
 
@@ -236,9 +253,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchFetch(ResourceEvent $event)
     {
         $serviceName = $this->fetch();
-        $errorMessage = 'The GET method has not been defined for individual resources';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -251,9 +267,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchFetchAll(ResourceEvent $event)
     {
         $serviceName = $this->fetchAll();
-        $errorMessage = 'The GET method has not been defined for collections';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -266,9 +281,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchPatch(ResourceEvent $event)
     {
         $serviceName = $this->patch();
-        $errorMessage =  'The PATCH method has not been defined for individual resources';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -281,9 +295,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchPatchList(ResourceEvent $event)
     {
         $serviceName = $this->patchList();
-        $errorMessage =  'The PATCH method has not been defined for collections';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -296,9 +309,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchReplaceList(ResourceEvent $event)
     {
         $serviceName = $this->replaceList();
-        $errorMessage =  'The PUT method has not been defined for collections';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
     /**
@@ -311,9 +323,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     private function dispatchUpdate(ResourceEvent $event)
     {
         $serviceName = $this->update();
-        $errorMessage =  'The PUT method has not been defined for individual resources';
 
-        return $this->dispatchService($serviceName, $event, $errorMessage);
+        return $this->dispatchService($serviceName, $event);
     }
 
 }

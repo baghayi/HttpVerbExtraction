@@ -152,8 +152,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'patchList':
                 return $this->dispatchPatchList($event);
             case 'replaceList':
-                $data = $event->getParam('data', array());
-                return $this->replaceList($data);
+                return $this->dispatchReplaceList($event);
             case 'update':
                 $id   = $event->getParam('id', null);
                 $data = $event->getParam('data', array());
@@ -292,7 +291,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      *
      * @return String
      */
-    public function patchList($data){}
+    public function patchList(){}
 
     private function dispatchPatchList($event)
     {
@@ -305,12 +304,16 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     /**
      * Replace a collection or members of a collection
      *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return String
      */
-    public function replaceList($data)
+    public function replaceList(){}
+
+    private function dispatchReplaceList(ResourceEvent $event)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for collections');
+        $serviceName = $this->replaceList();
+        $errorMessage =  'The PUT method has not been defined for collections';
+
+        return $this->dispatchService($serviceName, $event, $errorMessage);
     }
 
     /**

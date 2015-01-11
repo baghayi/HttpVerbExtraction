@@ -140,11 +140,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
             case 'create':
                 return $this->dispatchCreate($event);
             case 'delete':
-                //$id   = $event->getParam('id', null);
                 return $this->dispatchDelete($event);
             case 'deleteList':
-                //$data = $event->getParam('data', array());
-                //return $this->deleteList($data);
                 return $this->dispatchDeleteList($event);
             case 'fetch':
                 $id   = $event->getParam('id', null);

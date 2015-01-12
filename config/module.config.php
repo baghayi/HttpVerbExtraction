@@ -1,5 +1,20 @@
 <?php
 return array(
+    'http-verb-extraction' => array(
+        //'Name of virtual controller (checkout zfcampus/zf-rest module out)' => array(
+            //'create'      => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'delete'      => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'deleteList'  => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'fetch'       => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'fetchAll'    => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'patch'       => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'patchList'   => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'replaceList' => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+            //'update'      => 'A service name registered in the main service manager, returning object of type HttpVerbExtraction\DispatchableInterface.php',
+        //),
+        // Repeat for each controller
+    ),
+
     'service_manager' => array(
         'invokables' => array(
             'HttpVerbExtraction\Service\ControllerName' => 'HttpVerbExtraction\Service\ControllerName',

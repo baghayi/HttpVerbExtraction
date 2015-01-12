@@ -75,9 +75,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     {
         $serviceName  = $this->getServiceName($event);
 
-        if($serviceName instanceof DispatchableInterface)
-            return $serviceName->dispatch($event);
-
         $service = $this->getServiceInstance($serviceName);
 
         if($service instanceof DispatchableInterface)

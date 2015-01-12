@@ -3,6 +3,9 @@ namespace HttpVerbExtraction\Service;
 
 use ZF\Rest\ResourceEvent;
 
+/**
+* The collection_class config for the calling controller zf-rest config
+*/
 final class CollectionClass {
 
     private $zfRestConfig = array();

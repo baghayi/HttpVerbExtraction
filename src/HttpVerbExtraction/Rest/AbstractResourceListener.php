@@ -41,13 +41,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     protected $collectionClass;
 
 
-    /**
-     * Input filter, if discovered in the resource event.
-     *
-     * @var \Zend\InputFilter\InputFilterInterface
-     */
-    protected $inputFilter;
-
 
     private $serviceManager;
 
@@ -97,28 +90,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     }
 
 
-    /**
-     * Retrieve the input filter, if any
-     *
-     * Proxies to the resource event to find the input filter, if not already
-     * composed, and composes it.
-     *
-     * @return null|\Zend\InputFilter\InputFilterInterface
-     */
-    public function getInputFilter()
-    {
-        if ($this->inputFilter) {
-            return $this->inputFilter;
-        }
-
-        $event = $this->getEvent();
-        if (! $event instanceof ResourceEvent) {
-            return null;
-        }
-
-        $this->inputFilter = $event->getInputFilter();
-        return $this->inputFilter;
-    }
 
     /**
      * Attach listeners for all Resource events

@@ -95,28 +95,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
     private function getServiceName(ResourceEvent $event)
     {
-        $serviceName = $this->getServiceNameByCallingSubclassMethod($event);
-
-        if(!empty($serviceName))
-            return $serviceName;
-
-        $serviceName = $this->getServiceNameFromConfig($event);
-
-        return $serviceName;
-    }
-
-    private function getServiceNameByCallingSubclassMethod(ResourceEvent $event)
-    {
-        $eventName = $event->getName();
-
-        if(!method_exists($this, $eventName))
-            return;
-
-        return $this->$eventName();
-    }
-
-    private function getServiceNameFromConfig(ResourceEvent $event)
-    {
         $config = $this->getServiceLocator()->get('Config');
         $httpVerbExtraction = $config['http-verb-extraction'];
 
@@ -133,6 +111,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         return $httpVerbExtraction[$controllerName][$verbName];
     }
 
+
     private function getServiceInstance($serviceName)
     {
         if(!$this->getServiceLocator()->has($serviceName))
@@ -140,76 +119,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
         return $this->getServiceLocator()->get($serviceName);
     }
-
-    /**
-     * Create a resource
-     *
-     * @return String
-     */
-    public function create(){}
-
-
-    /**
-     * Delete a resource
-     *
-     * @return String
-     */
-    public function delete(){}
-
-
-    /**
-     * Delete a collection, or members of a collection
-     *
-     * @return String
-     */
-    public function deleteList(){}
-
-
-    /**
-     * Fetch a resource
-     *
-     * @return String
-     */
-    public function fetch(){}
-
-
-    /**
-     * Fetch all or a subset of resources
-     *
-     * @return String
-     */
-    public function fetchAll(){}
-
-
-    /**
-     * Patch (partial in-place update) a resource
-     *
-     * @return String
-     */
-    public function patch(){}
-
-
-    /**
-     * Patch (partial in-place update) a collection or members of a collection
-     *
-     * @return String
-     */
-    public function patchList(){}
-
-
-    /**
-     * Replace a collection or members of a collection
-     *
-     * @return String
-     */
-    public function replaceList(){}
-
-    /**
-     * Update a resource
-     *
-     * @return String
-     */
-    public function update(){}
 
 
 }

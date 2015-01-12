@@ -25,15 +25,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         'update'      => 'The PUT method has not been defined for individual resources',
     );
 
-    /**
-     * The entity_class config for the calling controller zf-rest config
-     */
-    protected $entityClass;
-
-    /**
-     * The collection_class config for the calling controller zf-rest config
-     */
-    protected $collectionClass;
 
 
     protected $serviceManager;
@@ -46,31 +37,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     public function getServiceLocator()
     {
         return $this->serviceManager;
-    }
-
-    /**
-     * Set the entity_class for the controller config calling this resource
-     */
-    public function setEntityClass($className)
-    {
-        $this->entityClass = $className;
-        return $this;
-    }
-
-    public function getEntityClass()
-    {
-        return $this->entityClass;
-    }
-
-    public function setCollectionClass($className)
-    {
-        $this->collectionClass = $className;
-        return $this;
-    }
-
-    public function getCollectionClass()
-    {
-        return $this->collectionClass;
     }
 
 

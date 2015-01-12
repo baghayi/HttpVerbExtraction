@@ -29,6 +29,9 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
     protected $serviceManager;
 
+    public function setEntityClass(){}
+    public function setCollectionClass(){}
+
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceManager = $serviceLocator;

@@ -6,6 +6,7 @@ return array(
         ),
         'factories' => array(
             'HttpVerbExtraction\Service\CollectionClass' => 'HttpVerbExtraction\Service\CollectionClassFactory',
+            'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Service\EntityClassFactory',
         )
     ),
 );

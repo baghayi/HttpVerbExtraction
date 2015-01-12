@@ -1,9 +1,6 @@
 <?php
 namespace HttpVerbExtraction;
 
-use HttpVerbExtraction\Service\EntityClass;
-use HttpVerbExtraction\Service\CollectionClass;
-
 class Module
 {
     public function getConfig()
@@ -18,27 +15,6 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
-            ),
-        );
-    }
-
-    public function getServiceConfig()
-    {
-        return array(
-            'factories' => array(
-                'HttpVerbExtraction\Service\EntityClass' => function($sm){
-                    $config         = $sm->get('Config');
-                    $zfRestConfig   = isset($config['zf-rest'])? $config['zf-rest'] : array();
-                    $controllerName = $sm->get('HttpVerbExtraction\Service\ControllerName');
-                    return new EntityClass($zfRestConfig, $controllerName);
-                },
-
-                'HttpVerbExtraction\Service\CollectionClass' => function($sm){
-                    $config         = $sm->get('Config');
-                    $zfRestConfig   = isset($config['zf-rest'])? $config['zf-rest'] : array();
-                    $controllerName = $sm->get('HttpVerbExtraction\Service\ControllerName');
-                    return new CollectionClass($zfRestConfig, $controllerName);
-                },
             ),
         );
     }

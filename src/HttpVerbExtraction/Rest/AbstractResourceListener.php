@@ -36,7 +36,7 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     protected $collectionClass;
 
 
-    private $serviceManager;
+    protected $serviceManager;
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {

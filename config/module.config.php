@@ -5,8 +5,8 @@ return array(
             'HttpVerbExtraction\Service\ControllerName' => 'HttpVerbExtraction\Service\ControllerName',
         ),
         'factories' => array(
-            'HttpVerbExtraction\Service\CollectionClass' => 'HttpVerbExtraction\Service\CollectionClassFactory',
-            'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Service\EntityClassFactory',
+            'HttpVerbExtraction\Service\CollectionClass' => 'HttpVerbExtraction\Factory\CollectionClassFactory',
+            'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Factory\EntityClassFactory',
         )
     ),
 );

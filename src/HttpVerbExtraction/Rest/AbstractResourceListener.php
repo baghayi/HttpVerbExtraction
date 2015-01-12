@@ -26,11 +26,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     );
 
     /**
-     * @var ResourceEvent
-     */
-    protected $event;
-
-    /**
      * The entity_class config for the calling controller zf-rest config
      */
     protected $entityClass;
@@ -39,7 +34,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      * The collection_class config for the calling controller zf-rest config
      */
     protected $collectionClass;
-
 
 
     private $serviceManager;
@@ -78,17 +72,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     {
         return $this->collectionClass;
     }
-
-    /**
-     * Retrieve the current resource event, if any
-     *
-     * @return ResourceEvent
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
-
 
 
     /**

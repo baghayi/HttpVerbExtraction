@@ -1,0 +1,28 @@
+{
+    "name": "baghayi/http-verb-extraction",
+    "type": "library",
+    "keywords": ["zf2","apigilitya", "resource", "http verbs", "http methods"],
+    "homepage": "http://github.com/baghayi/HttpVerbExtraction",
+    "description": "Zf2 module for extracting http verbs of resources used in Apigility, to their own classes.",
+    "require": {
+        "php": ">=5.3.23"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hossein Baghayi",
+            "email": "hossein.baghayi@gmail.com",
+            "homepage": "http://www.adeveloper.org",
+            "role" : "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "HttpVerbExtraction": "src/"
+        },
+        "classmap": [
+            "Module.php"
+            ]
+    }
+}

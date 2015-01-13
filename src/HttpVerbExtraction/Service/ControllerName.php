@@ -4,7 +4,7 @@ namespace HttpVerbExtraction\Service;
 use ZF\Rest\ResourceEvent;
 use Zend\Mvc\Router\RouteMatch;
 
-final class ControllerName {
+class ControllerName {
 
     public function get(ResourceEvent $event)
     {

@@ -22,10 +22,13 @@ final class EntityClass {
     {
         $controllerName = $this->controllerName->get($event);
 
-        if(isset($this->zfRestConfig[$controllerName]))
-            return $this->zfRestConfig[$controllerName]['entity_class']; 
+        if(!isset($this->zfRestConfig[$controllerName]))
+            return;
 
-        return;
+        if(!isset($this->zfRestConfig[$controllerName]['entity_class']))
+            return;
+
+        return $this->zfRestConfig[$controllerName]['entity_class'];
     }
 
 }

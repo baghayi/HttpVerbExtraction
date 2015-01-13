@@ -24,4 +24,11 @@ return array(
             'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Factory\EntityClassFactory',
         )
     ),
+    'humus_phpunit_module' => array(
+        'phpunit_runner' => array(
+            'HttpVerbExtraction' => [
+                __DIR__ . '/../phpunit.xml.dist'
+            ]
+        )
+    ),
 );

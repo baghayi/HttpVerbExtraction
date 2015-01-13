@@ -18,6 +18,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase {
         $expectedId = 5;
         $resourceEvent = $this->getMock('ZF\Rest\ResourceEvent');
         $resourceEvent->method('getParam')
+            ->with($this->equalTo('id'))
             ->willReturn($expectedId);
 
         $identifier = $this->getObjectForTrait('HttpVerbExtraction\Traits\Identifier');

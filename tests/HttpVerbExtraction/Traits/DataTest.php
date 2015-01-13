@@ -14,7 +14,7 @@ class DataTest extends \PHPUnit_Framework_TestCase {
         $this->assertEmpty($data);
     }
 
-    public function test_if_returnes_specified_data()
+    public function test_if_returns_specified_data()
     {
         $expectedData = array(
             'title' => 'Some test title',

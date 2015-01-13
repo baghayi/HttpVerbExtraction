@@ -3,7 +3,7 @@ namespace HttpVerbExtraction\Test\Traits;
 
 class InputFilterTest extends \PHPUnit_Framework_TestCase {
 
-    public function test_if_returnes_inputfilter_object()
+    public function test_if_returns_inputfilter_object()
     {
         $inputFilterInterface = 'Zend\InputFilter\InputFilterInterface';
         $inputFilterMock = $this->getMock($inputFilterInterface);

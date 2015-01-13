@@ -13,7 +13,7 @@ class IdentifierTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($id);
     }
 
-    public function test_if_returnes_specified_id_as_identifier()
+    public function test_if_returns_specified_id_as_identifier()
     {
         $expectedId = 5;
         $resourceEvent = $this->getMock('ZF\Rest\ResourceEvent');

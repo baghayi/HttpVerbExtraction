@@ -3,7 +3,7 @@ namespace HttpVerbExtraction\Test\Traits;
 
 class IdentityTest extends \PHPUnit_Framework_TestCase {
 
-    public function test_if_returnes_identity_object()
+    public function test_if_returns_identity_object()
     {
         $identityInterface = 'ZF\MvcAuth\Identity\IdentityInterface';
         $identityMock = $this->getMock($identityInterface);

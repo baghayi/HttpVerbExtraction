@@ -22,10 +22,14 @@ final class CollectionClass {
     {
         $controllerName = $this->controllerName->get($event);
 
-        if(isset($this->zfRestConfig[$controllerName]))
-            return $this->zfRestConfig[$controllerName]['collection_class'];
 
-        return;
+        if(!isset($this->zfRestConfig[$controllerName]))
+            return;
+
+        if(!isset($this->zfRestConfig[$controllerName]['collection_class']))
+            return;
+
+        return $this->zfRestConfig[$controllerName]['collection_class'];
     }
 
 }

@@ -3,13 +3,6 @@ namespace HttpVerbExtraction\Test\Traits;
 
 class IdentifierTest extends \PHPUnit_Framework_TestCase {
 
-    private $resourceEvent;
-
-    public function setUp()
-    {
-        // TODO ResourceEvent mock
-    }
-
     public function test_if_returns_identifier_as_null_when_not_specified()
     {
         $resourceEvent = $this->getMock('ZF\Rest\ResourceEvent');

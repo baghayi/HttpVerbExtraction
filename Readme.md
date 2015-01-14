@@ -4,7 +4,9 @@ Http Verb Extraction
 
 Introduction
 ---
-Well, It's been awhile I've been hacking around apigility and recently I chose to use it on a project we've started. The thing I don't like about it and which this module is kind of trying to address it is that in Resource classes we have lots of methods, each belongs to a http method (http verb) for either a collection or entity. Methods like `create`, `delete`, 'fetchAll', ... .
+`In a nutshell`, what this module does, is extracting each http verbs (as I call them), such as `create` (for posting on collection), `delete`, `fetchAll`, `deleteList`, ... to their own classes.
+
+Well, It's been awhile I've been hacking around apigility and recently I chose to use it on a project we've started. The thing I don't like about it and which this module is kind of trying to address it is that in Resource classes we have lots of methods, each belongs to a http method (http verb) for either a collection or entity. Methods like `create`, `delete`, `fetchAll`, ... .
 
 What it seems to me is like a controller with lots of actions in it. Which I believe in one action per controller personally, and the issue as you might have gussed by now arises here. That I'm not definelty going to invoke more than one action at a time. But the objects those methods depend on has to get passed to the respective class so that it can get to work whenever it has to.
 

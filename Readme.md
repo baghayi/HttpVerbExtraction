@@ -20,3 +20,24 @@ Unfortunately I'm not completly familiar with apigility's internals so that I co
 
 I will mention those issues but for now it's enought talking (writing). Lets see what we've got here.
 
+
+Installation
+---
+First you need to either download this module manually, using git or by composer.
+It is recommended to use composer, but the choice is yours.
+
+If your are using composer, it will download the module to vendor/ directory by default.
+If you are downloading manually, or cloning it using git, then you need to place it under vendor/ directory as composer does.
+
+Then you need to add `HttpVerbExtraction` to your `config/application.config.php` file under 'modules' key.
+
++ For installing using composer you need to run this command in your project's root directory: 
+    > `composer require "baghayi/http-verb-extraction:dev-master"`
+
++ If you want to directly clone it using git then you need to run this command under vendor/ (or wherever your modules will be loaded from) directory:
+    > `git clone https://github.com/baghayi/HttpVerbExtraction`
+
++ You can also download module in a zip file by clicking on 'Download ZIP' button or use this URL, then move it to vendor/ directory then unzip it:
+    > `https://github.com/baghayi/HttpVerbExtraction/archive/master.zip`
+
+Now you are ready to go.

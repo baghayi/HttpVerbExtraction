@@ -14,7 +14,7 @@ To be clear, the issue I am facing is that, I have to pass lots of objects to th
 
 To be fair, I need to mention that I've seen some people pass the class a mapper object which is one object only. But to me, it feels like delegating the problem to someone else, another object, and does not seem like getting rid of the problem at all.
 
-`What this module is aiming for, is to solve this issue.`
+By creating this module, I'am aiming for solving this issue.
 
 Unfortunately I'm not completly familiar with apigility's internals so that I could not come up with a better solution. I mean there are some stuff that I do not like about this module and could be solved but it would need to change apigility as well which is not what I want for now, or that they may be solve in a better ways with apigility's current status, which I am not familiar.
 

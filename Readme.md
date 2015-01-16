@@ -107,3 +107,11 @@ Verb classes that implements `HttpVerbExtraction\DispatchableInterface.php` inte
 If you are not sure how to get the specified values as traits does, you can look up traits source code as they are prety straight forward to understand.
 
 Not to mention that, methods defined in the traits require event object to be passed to them so that they can do what they are supposed to do.
+
+Services
+---
+* `HttpVerbExtraction\Service\ControllerName` for getting controller name of your resource that you are in.
+
+* `HttpVerbExtraction\Service\CollectionClass` for getting collection class name of the resource you are in.
+
+* `HttpVerbExtraction\Service\EntityClass` for getting entity class name of the resource you are in.

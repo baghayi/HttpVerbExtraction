@@ -12,10 +12,6 @@ use HttpVerbExtraction\DispatchableInterface;
 abstract class AbstractResourceListener extends AbstractListenerAggregate implements 
     ServiceLocatorAwareInterface {
 
-
-
-
-
     protected $serviceManager;
 
     public function setEntityClass(){}

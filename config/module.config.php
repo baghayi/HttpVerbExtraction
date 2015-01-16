@@ -24,6 +24,7 @@ return array(
             'HttpVerbExtraction\Service\CollectionClass' => 'HttpVerbExtraction\Factory\CollectionClassFactory',
             'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Factory\EntityClassFactory',
             'HttpVerbExtraction\Service\VerbServiceName' => 'HttpVerbExtraction\Factory\VerbServiceNameFactory',
+            'HttpVerbExtraction\Rest\DispatchVerb'       => 'HttpVerbExtraction\Factory\DispatchVerbFactory',
         )
     ),
     'humus_phpunit_module' => array(

@@ -41,3 +41,47 @@ Then you need to add `HttpVerbExtraction` to your `config/application.config.php
     > `https://github.com/baghayi/HttpVerbExtraction/archive/master.zip`
 
 Now you are ready to go.
+
+Usage
+---
+In order to use this module, you need to take these steps:
+
+* Replace `ZF\Rest\AbstractResourceListener` with `HttpVerbExtraction\Rest\AbstractResourceListener` which is provided by this module, in your Resource classes.
+
+For instance: if your API module name is DemoApi then its resource class location should be `DemoApi\V1\Rest\Demo\DemoResource.php` for rest resources, this class in apigility extends `ZF\Rest\AbstractResourceListener` by default, that you need to change it to `HttpVerbExtraction\Rest\AbstractResourceListener`.
+
+* Any methods in Resource classes are kind of useless and you can remove them all as they won't be used by this module.
+
+* For each http verbs such as `create`, `fetch`, ... you need to create a dedicated class which implements `HttpVerbExtraction\DispatchableInterface.php` interface.
+
+* Then you need to define the previously created class as a service in the main service manager.
+
+* After creating a service for each http verb (`create`, `delete`, ...) you need to associate them together. To do so you need to create an array in the config file of your module as following:
+
+```
+    'http-verb-extraction' => array(
+        'Name of virtual controller (checkout zfcampus/zf-rest module out)' => array(
+            'create'      => 'A service name',
+            'delete'      => 'A service name',
+            'deleteList'  => 'A service name',
+            'fetch'       => 'A service name',
+            'fetchAll'    => 'A service name',
+            'patch'       => 'A service name',
+            'patchList'   => 'A service name',
+            'replaceList' => 'A service name',
+            'update'      => 'A service name',
+        ),
+        // Repeat for each controller
+    ),
+
+```
+
+As you can see, in the module config file, you need to create an array with key of `http-verb-extraction` which contains another array.
+
+The nested array's key has to be the Resources controller name, which could be found in the api module's config file of your resources.
+
+In our example, our DemoApi's controller name should be something like this: `DemoApi\\V1\\Rest\\Demo\\Controller` for rest resources.
+
+As you can see the nested array consists of elements such as `create`, `delete`, `deleteList`, ... for each http verb, and their values have to be the name of a service that previously created.
+
+You can omit verbs that you do not use or need.

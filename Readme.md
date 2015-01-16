@@ -115,3 +115,20 @@ Services
 * `HttpVerbExtraction\Service\CollectionClass` for getting collection class name of the resource you are in.
 
 * `HttpVerbExtraction\Service\EntityClass` for getting entity class name of the resource you are in.
+
+
+Issues
+---
+1- One thing that I think needs to be taken care of is ResourceClass and its factory class themselves.
+As they are not being delt with by developers any more, I think they could be moved and hidden from developers (Apigility users). They do not need to be presented to the developers.
+
+They might have been a better way of solving this issue, but unfortunately I'm not aware of, at the moment.
+
+I've seen controller_class option, but I'm not quite sure if its is possible to solve the issue presented by this module using that option. Maybe the solution was a custome controller?
+
+2- I'm using service locator inside of the abstract class, which is kind of bugging me as well.
+I'm not quite sure if its okay to have it there or not. With this approach I have no idea how to get instance of verb services without having service controller instance in the abstract class.
+
+3- http-verb-extraction array key that I have introduced could be merged with zf-rest key in the config file, but I did not want to introduce anything new in it by myself (as outsider, not member of apigility main developers). Event though it does the job, but could have a proper home.
+
+4- In test suits I'm kind of mocking everything :), which does not feel right as well. Since I have got not enough experience in testing, some advice would be appreciated.

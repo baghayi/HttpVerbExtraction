@@ -13,17 +13,6 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
     ServiceLocatorAwareInterface {
 
 
-    protected $errorMessages = array(
-        'create'      => 'The POST method has not been defined',
-        'delete'      => 'The DELETE method has not been defined for individual resources',
-        'deleteList'  => 'The DELETE method has not been defined for collections',
-        'fetch'       => 'The GET method has not been defined for individual resources',
-        'fetchAll'    => 'The GET method has not been defined for collections',
-        'patch'       => 'The PATCH method has not been defined for individual resources',
-        'patchList'   => 'The PATCH method has not been defined for collections',
-        'replaceList' => 'The PUT method has not been defined for collections',
-        'update'      => 'The PUT method has not been defined for individual resources',
-    );
 
 
 
@@ -80,14 +69,14 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
         if($service instanceof DispatchableInterface)
             return $service->dispatch($event);
 
-        $errorMessage = $this->getErrorMessage($event);
-        return new ApiProblem(405, $errorMessage);
+        return $this->getErrorMessage($event);
     }
 
     private function getErrorMessage(ResourceEvent $event)
     {
-        $eventName = $event->getName();
-        return $this->errorMessages[$eventName];
+        $errorMessage = $this->getServiceLocator()->get('HttpVerbExtraction\ErrorMessage\NotImplemented');
+        $message = $errorMessage->get($event);
+        return new ApiProblem(405, $message);
     }
 
     private function getServiceName(ResourceEvent $event)

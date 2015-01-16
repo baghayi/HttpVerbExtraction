@@ -1,6 +1,8 @@
 <?php
 namespace HttpVerbExtraction;
 
+use HttpVerbExtraction\Initializer\DispatchVerbAwareInterface;
+
 class Module
 {
     public function getConfig()
@@ -20,6 +22,21 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'initializers' => array(
+                'HttpVerbExtraction\Initializer\DispatchVerbAwareInterface' => function($service, $sm){
+                    if(!$service instanceof DispatchVerbAwareInterface)
+                        return;
+
+                    $dispatchVerb = $sm->get('HttpVerbExtraction\Rest\DispatchVerb');
+                    $service->setDispatchVerb($dispatchVerb);
+                },
+            )
         );
     }
 

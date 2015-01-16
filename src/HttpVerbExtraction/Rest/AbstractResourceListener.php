@@ -77,20 +77,8 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
 
     private function getServiceName(ResourceEvent $event)
     {
-        $config = $this->getServiceLocator()->get('Config');
-        $httpVerbExtraction = $config['http-verb-extraction'];
-
-        $controllerName = $this->getServiceLocator()->get('HttpVerbExtraction\Service\ControllerName');
-        $controllerName = $controllerName->get($event);
-
-        if(!isset($httpVerbExtraction[$controllerName]))
-            return;
-
-        $verbName = $event->getName();
-        if(!isset($httpVerbExtraction[$controllerName][$verbName]))
-            return;
-
-        return $httpVerbExtraction[$controllerName][$verbName];
+        $serviceName = $this->getServiceLocator()->get('HttpVerbExtraction\Service\VerbServiceName');
+        return $serviceName->get($event);
     }
 
 

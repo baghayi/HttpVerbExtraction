@@ -3,8 +3,6 @@ namespace HttpVerbExtraction\Rest;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use ZF\Rest\ResourceEvent;
-use HttpVerbExtraction\DispatchableInterface;
 use HttpVerbExtraction\Rest\DispatchVerb;
 use HttpVerbExtraction\Initializer\DispatchVerbAwareInterface;
 

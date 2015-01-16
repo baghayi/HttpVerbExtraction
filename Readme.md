@@ -85,3 +85,25 @@ In our example, our DemoApi's controller name should be something like this: `De
 As you can see the nested array consists of elements such as `create`, `delete`, `deleteList`, ... for each http verb, and their values have to be the name of a service that previously created.
 
 You can omit verbs that you do not use or need.
+
+
+Traits
+---
+
+In this module, there are about 5 traits at your disposal. Which could be used in the classes that are created for http verbs. 
+
+* `HttpVerbExtraction\Traits\Data` for getting data sent by user to your api.
+* `HttpVerbExtraction\Traits\Identifier` for getting id of an entity.
+* `HttpVerbExtraction\Traits\Identity` for getting identity object.
+* `HttpVerbExtraction\Traits\InputFilter` for getting inputFilter.
+* `HttpVerbExtraction\Traits\QueryParams` for getting query params specified in the URL.
+
+All these traits have only one method in them, to do the one task that they are supposed to to.
+
+But you do not necessarily need to use these traits. You can get the values provided by these traists, directly in your verbs classes.
+
+Verb classes that implements `HttpVerbExtraction\DispatchableInterface.php` interface, will get ResourceEvent as argument in its dispatch method. All of the values provided by traits could be retrieved directly by the event passed in your class.
+
+If you are not sure how to get the specified values as traits does, you can look up traits source code as they are prety straight forward to understand.
+
+Not to mention that, methods defined in the traits require event object to be passed to them so that they can do what they are supposed to do.

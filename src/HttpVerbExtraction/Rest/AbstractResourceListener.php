@@ -3,28 +3,29 @@ namespace HttpVerbExtraction\Rest;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
-use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\ResourceEvent;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use HttpVerbExtraction\DispatchableInterface;
+use HttpVerbExtraction\Rest\DispatchVerb;
+use HttpVerbExtraction\Initializer\DispatchVerbAwareInterface;
 
-abstract class AbstractResourceListener extends AbstractListenerAggregate implements 
-    ServiceLocatorAwareInterface {
+abstract class AbstractResourceListener 
+    extends AbstractListenerAggregate 
+    implements DispatchVerbAwareInterface
+     {
 
-    protected $serviceManager;
+    private $dispatchVerb;
 
     public function setEntityClass(){}
     public function setCollectionClass(){}
 
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setDispatchVerb(DispatchVerb $dispatchVerb) 
     {
-        $this->serviceManager = $serviceLocator;
+        $this->dispatchVerb = $dispatchVerb;
     }
 
-    public function getServiceLocator()
+    public function getDispatchVerb()
     {
-        return $this->serviceManager;
+        return $this->dispatchVerb;
     }
 
 
@@ -35,60 +36,15 @@ abstract class AbstractResourceListener extends AbstractListenerAggregate implem
      */
     public function attach(EventManagerInterface $events)
     {
-        $events->attach('create',      array($this, 'dispatch'));
-        $events->attach('delete',      array($this, 'dispatch'));
-        $events->attach('deleteList',  array($this, 'dispatch'));
-        $events->attach('fetch',       array($this, 'dispatch'));
-        $events->attach('fetchAll',    array($this, 'dispatch'));
-        $events->attach('patch',       array($this, 'dispatch'));
-        $events->attach('patchList',   array($this, 'dispatch'));
-        $events->attach('replaceList', array($this, 'dispatch'));
-        $events->attach('update',      array($this, 'dispatch'));
+        $events->attach('create',      array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('delete',      array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('deleteList',  array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('fetch',       array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('fetchAll',    array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('patch',       array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('patchList',   array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('replaceList', array($this->getDispatchVerb(), 'dispatch'));
+        $events->attach('update',      array($this->getDispatchVerb(), 'dispatch'));
     }
-
-
-
-    /**
-     * Dispatch an incoming event to the appropriate method
-     *
-     * Marshals arguments from the event parameters.
-     *
-     * @param  ResourceEvent $event
-     * @return ApiProblem|HttpVerbExtraction\DispatchableInterface
-     */
-    public function dispatch(ResourceEvent $event)
-    {
-        $serviceName  = $this->getServiceName($event);
-
-        $service = $this->getServiceInstance($serviceName);
-
-        if($service instanceof DispatchableInterface)
-            return $service->dispatch($event);
-
-        return $this->getErrorMessage($event);
-    }
-
-    private function getErrorMessage(ResourceEvent $event)
-    {
-        $errorMessage = $this->getServiceLocator()->get('HttpVerbExtraction\ErrorMessage\NotImplemented');
-        $message = $errorMessage->get($event);
-        return new ApiProblem(405, $message);
-    }
-
-    private function getServiceName(ResourceEvent $event)
-    {
-        $serviceName = $this->getServiceLocator()->get('HttpVerbExtraction\Service\VerbServiceName');
-        return $serviceName->get($event);
-    }
-
-
-    private function getServiceInstance($serviceName)
-    {
-        if(!$this->getServiceLocator()->has($serviceName))
-            return;
-
-        return $this->getServiceLocator()->get($serviceName);
-    }
-
 
 }

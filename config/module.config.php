@@ -23,6 +23,7 @@ return array(
         'factories' => array(
             'HttpVerbExtraction\Service\CollectionClass' => 'HttpVerbExtraction\Factory\CollectionClassFactory',
             'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Factory\EntityClassFactory',
+            'HttpVerbExtraction\Service\VerbServiceName' => 'HttpVerbExtraction\Factory\VerbServiceNameFactory',
         )
     ),
     'humus_phpunit_module' => array(

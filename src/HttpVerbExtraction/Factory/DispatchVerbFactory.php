@@ -10,7 +10,7 @@ class DispatchVerbFactory implements FactoryInterface
 
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $errorMessage    = $serviceLocator->get('HttpVerbExtraction\ErrorMessage\NotImplemented');
+        $errorMessage    = $serviceLocator->get('HttpVerbExtraction\ErrorMessage\ErrorMessage');
         $verbServiceName = $serviceLocator->get('HttpVerbExtraction\Service\VerbServiceName');
         return new DispatchVerb($errorMessage, $verbServiceName);
     }

@@ -132,3 +132,6 @@ I'm not quite sure if its okay to have it there or not. With this approach I hav
 3- http-verb-extraction array key that I have introduced could be merged with zf-rest key in the config file, but I did not want to introduce anything new in it by myself (as outsider, not member of apigility main developers). Event though it does the job, but could have a proper home.
 
 4- In test suits I'm kind of mocking everything :), which does not feel right as well. Since I have got not enough experience in testing, some advice would be appreciated.
+
+Thank you :)
+---

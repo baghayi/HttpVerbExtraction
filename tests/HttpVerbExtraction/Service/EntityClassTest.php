@@ -9,9 +9,10 @@ class EntityClassTest extends \PHPUnit_Framework_TestCase {
     {
         $sampleEntityName = 'ARandomEntityName';
         $sampleControllerName = 'AVirtualControllerName';
-        $resourceEvent = $this->getMock('ZF\Rest\ResourceEvent');
 
-        $controllerName = $this->getMock('HttpVerbExtraction\Service\ControllerName');
+        $controllerName = $this->getMockBuilder('HttpVerbExtraction\Service\ControllerName')
+            ->disableOriginalConstructor()
+            ->getMock();
         $controllerName->method('get')
             ->willReturn($sampleControllerName);
 
@@ -21,7 +22,7 @@ class EntityClassTest extends \PHPUnit_Framework_TestCase {
             ),
         );
         $entityClassObject = new EntityClass($zfRestConfig, $controllerName);
-        $entityClassName = $entityClassObject->get($resourceEvent);
+        $entityClassName = $entityClassObject->get();
 
         $this->assertEquals($entityClassName, $sampleEntityName);
     }

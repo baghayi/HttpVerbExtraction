@@ -18,9 +18,9 @@ final class EntityClass {
         $this->controllerName = $controllerName;
     }
 
-    public function get(ResourceEvent $event)
+    public function get()
     {
-        $controllerName = $this->controllerName->get($event);
+        $controllerName = $this->controllerName->get();
 
         if(!isset($this->zfRestConfig[$controllerName]))
             return;

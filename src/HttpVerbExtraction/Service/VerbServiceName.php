@@ -3,6 +3,7 @@ namespace HttpVerbExtraction\Service;
 
 use HttpVerbExtraction\Service\ControllerName;
 use ZF\Rest\ResourceEvent;
+use HttpVerbExtraction\Exception\ServiceNotFound;
 
 class VerbServiceName {
 
@@ -33,11 +34,11 @@ class VerbServiceName {
         $controllerName = $this->controllerName->get($event);
 
         if(!isset($httpVerbExtraction[$controllerName]))
-            return;
+            throw new ServiceNotFound($event->getName());
 
         $verbName = $event->getName();
         if(!isset($httpVerbExtraction[$controllerName][$verbName]))
-            return;
+            throw new ServiceNotFound($verbName);
 
         return $httpVerbExtraction[$controllerName][$verbName];
     }

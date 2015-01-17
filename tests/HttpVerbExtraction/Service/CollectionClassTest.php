@@ -9,9 +9,10 @@ class CollectionClassTest extends \PHPUnit_Framework_TestCase {
     {
         $sampleCollectionName = 'ARandomCollectionName';
         $sampleControllerName = 'AVirtualControllerName';
-        $resourceEvent = $this->getMock('ZF\Rest\ResourceEvent');
 
-        $controllerName = $this->getMock('HttpVerbExtraction\Service\ControllerName');
+        $controllerName = $this->getMockBuilder('HttpVerbExtraction\Service\ControllerName')
+            ->disableOriginalConstructor()
+            ->getMock();
         $controllerName->method('get')
             ->willReturn($sampleControllerName);
 
@@ -21,7 +22,7 @@ class CollectionClassTest extends \PHPUnit_Framework_TestCase {
             ),
         );
         $collectionClassObject = new CollectionClass($zfRestConfig, $controllerName);
-        $collectionClassName = $collectionClassObject->get($resourceEvent);
+        $collectionClassName = $collectionClassObject->get();
 
         $this->assertEquals($collectionClassName, $sampleCollectionName);
     }

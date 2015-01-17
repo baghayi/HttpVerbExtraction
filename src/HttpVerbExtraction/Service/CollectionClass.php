@@ -1,8 +1,6 @@
 <?php
 namespace HttpVerbExtraction\Service;
 
-use ZF\Rest\ResourceEvent;
-
 /**
 * The collection_class config for the calling controller zf-rest config
 */
@@ -18,10 +16,9 @@ final class CollectionClass {
         $this->controllerName = $controllerName;
     }
 
-    public function get(ResourceEvent $event)
+    public function get()
     {
-        $controllerName = $this->controllerName->get($event);
-
+        $controllerName = $this->controllerName->get();
 
         if(!isset($this->zfRestConfig[$controllerName]))
             return;

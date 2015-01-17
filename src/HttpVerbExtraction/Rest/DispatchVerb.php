@@ -8,6 +8,7 @@ use HttpVerbExtraction\ErrorMessage\ErrorMessage;
 use HttpVerbExtraction\DispatchableInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use HttpVerbExtraction\Exception\ServiceNotFound;
 
 class DispatchVerb implements ServiceLocatorAwareInterface {
 
@@ -51,7 +52,7 @@ class DispatchVerb implements ServiceLocatorAwareInterface {
     private function getServiceInstance($serviceName)
     {
         if(!$this->getServiceLocator()->has($serviceName))
-            return;
+            throw new ServiceNotFound($serviceName);
 
         return $this->getServiceLocator()->get($serviceName);
     }

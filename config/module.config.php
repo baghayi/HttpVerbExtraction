@@ -17,7 +17,6 @@ return array(
 
     'service_manager' => array(
         'invokables' => array(
-            'HttpVerbExtraction\Service\ControllerName'      => 'HttpVerbExtraction\Service\ControllerName',
             'HttpVerbExtraction\ErrorMessage\ErrorMessage' => 'HttpVerbExtraction\ErrorMessage\NotImplemented',
         ),
         'factories' => array(
@@ -25,6 +24,7 @@ return array(
             'HttpVerbExtraction\Service\EntityClass'     => 'HttpVerbExtraction\Factory\EntityClassFactory',
             'HttpVerbExtraction\Service\VerbServiceName' => 'HttpVerbExtraction\Factory\VerbServiceNameFactory',
             'HttpVerbExtraction\Rest\DispatchVerb'       => 'HttpVerbExtraction\Factory\DispatchVerbFactory',
+            'HttpVerbExtraction\Service\ControllerName'  => 'HttpVerbExtraction\Factory\ControllerNameFactory',
         )
     ),
     'humus_phpunit_module' => array(

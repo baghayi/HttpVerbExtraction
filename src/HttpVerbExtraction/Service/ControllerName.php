@@ -1,18 +1,20 @@
 <?php
 namespace HttpVerbExtraction\Service;
 
-use ZF\Rest\ResourceEvent;
 use Zend\Mvc\Router\RouteMatch;
 
 class ControllerName {
 
-    public function get(ResourceEvent $event)
-    {
-        $routeMatch = $event->getRouteMatch();
-        if(!$routeMatch instanceof RouteMatch)
-            return null;
+    private $routeMatch;
 
-        return $routeMatch->getParam('controller', null);
+    public function __construct(RouteMatch $routeMatch)
+    {
+        $this->routeMatch = $routeMatch;
+    }
+
+    public function get()
+    {
+        return $this->routeMatch->getParam('controller', null);
     }
 
 }

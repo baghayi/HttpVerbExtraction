@@ -9,6 +9,7 @@ use HttpVerbExtraction\DispatchableInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use HttpVerbExtraction\Exception\ServiceNotFound;
+use HttpVerbExtraction\Exception\ServiceNameNotFound;
 
 class DispatchVerb implements ServiceLocatorAwareInterface {
 
@@ -27,14 +28,20 @@ class DispatchVerb implements ServiceLocatorAwareInterface {
 
     public function dispatch(ResourceEvent $event)
     {
-        $serviceName  = $this->getServiceName($event);
+        try{
+            $serviceName  = $this->getServiceName($event);
 
-        $service = $this->getServiceInstance($serviceName);
+            $service = $this->getServiceInstance($serviceName);
 
-        if($service instanceof DispatchableInterface)
-            return $service->dispatch($event);
-
-        return $this->getErrorMessage($event);
+            if($service instanceof DispatchableInterface)
+                return $service->dispatch($event);
+        }
+        Catch(ServiceNameNotFound $e) {
+            return $this->getErrorMessage($event);
+        }
+        Catch(ServiceNotFound $e) {
+            return $this->getErrorMessage($event);
+        }
     }
 
     private function getErrorMessage(ResourceEvent $event)
